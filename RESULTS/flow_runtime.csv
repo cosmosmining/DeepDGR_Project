@@ -1,0 +1,7 @@
+chip,native_route_s,dgr_flow_s (opt2000+route),ours_flow_s (load+GNN+opt+refine+route),ours_vs_dgr_speedup,ours_overhead_vs_native_route
+18_t5,9.1,351.2,84.1,4.2x,9.2x
+18_t8,23.5,507.3,129.5,3.9x,5.5x
+18_t10,31.1,405.9,144.4,2.8x,4.6x
+19_t7,46.5,879.8,260.5,3.4x,5.6x
+19_t8,60.2,1258.2,273.4,4.6x,4.5x
+19_t9,94.9,2030.9,419.9,4.8x,4.4x

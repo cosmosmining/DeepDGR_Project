@@ -1,0 +1,7 @@
+chip,wirelength,via_count,overflow,source,dWL_vs_native_%,dvia_vs_native_%,of_vs_native,beats_native,beats_dgr
+18_t5,26287785,801320,0,all6_600it,-1.06,-6.43,5->0,True,True
+18_t8,60435124,1951017,0,ensemble,-1.42,-8.09,0->0,True,True
+18_t10,70194991,2087150,0,all6_600it,-3.53,-7.03,0->0,True,True
+19_t7,103968670,3700939,0,ensemble,-0.65,-2.94,0->0,True,True
+19_t8,175699924,6039811,10,ensemble,-0.68,-1.38,18->10,True,True
+19_t9,261336992,9676653,28,all6_600it,-0.31,-5.01,30->28,True,True

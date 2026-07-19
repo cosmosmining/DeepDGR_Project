@@ -1,0 +1,12 @@
+# Core (GPU): install torch matching your CUDA, then PyG extensions.
+#   pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+#   pip install torch-scatter torch-geometric -f https://data.pyg.org/whl/torch-2.5.1+cu121.html
+torch==2.5.1
+torch-geometric>=2.5
+torch-scatter>=2.1
+numpy>=1.24
+scipy>=1.10
+# Plotting / reporting
+matplotlib>=3.7
+seaborn>=0.13
+python-pptx>=0.6

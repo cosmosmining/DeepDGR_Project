@@ -1,0 +1,7 @@
+benchmark,wirelength,via_count,overflow,route_s
+ispd18_test5_metal5,26287785,801320,0,
+ispd18_test8_metal5,60495949,1950548,0,
+ispd18_test10_metal5,70194991,2087150,0,
+ispd19_test7_metal5,104010415,3701024,0,
+ispd19_test8_metal5,175640769,6039143,16,
+ispd19_test9_metal5,261336992,9676653,28,

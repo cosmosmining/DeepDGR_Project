@@ -1,0 +1,25 @@
+# ---- generated artifacts (regenerate via docs/REPRODUCE.md) ----
+__pycache__/
+*.pyc
+tmp/*
+!tmp/.gitkeep
+CUGR2_guide/*
+!CUGR2_guide/.gitkeep
+# preprocessed benchmarks / warm-starts / teacher targets
+*.pt
+*_ws.npz
+*_dgr.npz
+*_warmstart.npz
+*_target.npz
+# large synthetic corpora
+synthdata/
+cong10k/
+compact/
+# router build + benchmark inputs (user-provided; see docs/BENCHMARKS.md)
+cu-gr-2/**
+!cu-gr-2/README.md
+# logs / scratch
+*.log
+validation_out/
+step1.csv
+# keep: gnn_all6_robust.pth (the deployed model), RESULTS/*.csv, RESULTS/figs/*
