@@ -86,13 +86,13 @@ def log(msg):
 # ════════════════════════════════════════════════════════════════════════
 #  Command runner
 # ════════════════════════════════════════════════════════════════════════
-# Cache the current Python interpreter path so subprocess calls use
-# the same conda/venv Python that's running this script.
-_PYTHON = '/ocean/projects/cis260079p/ctsai4/miniconda3/envs/deepdgr/bin/python3'
+# Use the current Python interpreter for subprocess calls so the same
+# conda/venv Python that's running this script propagates to children.
+_PYTHON = sys.executable or 'python3'
 
 def run_cmd(cmd, tag, cwd=None):
     """Run a shell command, log result, return (ok, duration_seconds).
-    Replaces bare 'python3' with the current interpreter ('/ocean/projects/cis260079p/ctsai4/miniconda3/envs/deepdgr/bin/python3')
+    Replaces bare 'python3' with the current interpreter (sys.executable)
     so conda/venv environments propagate to subprocesses."""
     # Replace leading 'python3 ' or 'python ' with the real interpreter
     if cmd.startswith("python3 "):

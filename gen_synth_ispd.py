@@ -135,7 +135,7 @@ def main():
     ap.add_argument("--certify", action="store_true")
     ap.add_argument("--certify_iters", type=int, default=200)
     ap.add_argument("--keep_uncertified", action="store_true")
-    ap.add_argument("--out_root", default="/ocean/projects/cis260079p/ctsai4/synthdata")
+    ap.add_argument("--out_root", default=os.environ.get("DEEPDGR_DATA", "./synthdata"))
     ap.add_argument("--run", default="ispd")
     ap.add_argument("--base_seed", type=int, default=0)
     ap.add_argument("--resume", action="store_true",

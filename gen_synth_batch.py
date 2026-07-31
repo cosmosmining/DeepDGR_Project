@@ -103,7 +103,7 @@ import numpy as np
 ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, ROOT)
 
-DEFAULT_OUT_ROOT = "/ocean/projects/cis260079p/ctsai4/synthdata"
+DEFAULT_OUT_ROOT = os.environ.get("DEEPDGR_DATA", "./synthdata")
 
 # Manifest schema (one row / instance).
 MANIFEST_FIELDS = [
