@@ -1,12 +1,30 @@
-# Core (GPU): install torch matching your CUDA, then PyG extensions.
+# ============================================================================
+# DeepDGR — Python dependencies
+# ============================================================================
+# GPU stack: install torch matching YOUR CUDA first, then the PyG extensions
+# from the matching wheel index (they must match torch+CUDA exactly):
+#
 #   pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu121
-#   pip install torch-scatter torch-geometric -f https://data.pyg.org/whl/torch-2.5.1+cu121.html
+#   pip install torch-scatter torch-geometric \
+#       -f https://data.pyg.org/whl/torch-2.5.1+cu121.html
+#   pip install -r requirements.txt
+# ----------------------------------------------------------------------------
+
+# --- core numerics / GPU ---
 torch==2.5.1
 torch-geometric>=2.5
 torch-scatter>=2.1
 numpy>=1.24
 scipy>=1.10
-# Plotting / reporting
+
+# --- plotting / report figures ---
 matplotlib>=3.7
 seaborn>=0.13
+
+# --- slide deck generation (make_pptx.py) ---
 python-pptx>=0.6
+lxml>=4.9            # used directly by make_pptx.py for table styling
+
+# --- optional: Ray Tune hyperparameter search (test.py, ray.sh) ---
+# Not needed to reproduce the report; install only if you run the HPO scripts.
+# ray[tune]>=2.0

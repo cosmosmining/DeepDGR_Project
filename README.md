@@ -76,22 +76,39 @@ Fig 1, `overflow_curve_*.csv` = Fig 2, `scaling_*.csv` = §4.5).
 ```bash
 # 1. environment  (see docs/SETUP.md for the exact conda spec)
 conda create -n deepdgr python=3.10 -y && conda activate deepdgr
+pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+pip install torch-scatter torch-geometric -f https://data.pyg.org/whl/torch-2.5.1+cu121.html
 pip install -r requirements.txt
 
-# 2. build CUGR2 and place benchmarks   (see docs/SETUP.md + docs/BENCHMARKS.md)
-#    -> cu-gr-2/run/route            (the router binary)
-#    -> cu-gr-2/run/POWV9.dat POST9.dat   (FLUTE tables)
+# 2. verify env + regenerate the report figures from shipped RESULTS/*.csv
+#    (needs NO benchmarks, NO GPU — proves the toolchain works)
+./verify.sh
+
+# 3. build the CUGR2 router (clones + builds the exact pinned commit)
+./setup_cugr2.sh          # -> cu-gr-2/run/route (+ FLUTE tables)
+
+# 4. place the ISPD benchmarks   (see docs/BENCHMARKS.md — not redistributable)
 #    -> cu-gr-2/benchmark/test/<bench>/<bench>.input.lef / .input.def
 
-# 3. preprocess a benchmark into a .pt   (one-time, per benchmark)
+# 5. preprocess a benchmark into a .pt   (one-time, per benchmark)
 python3 data_process_CUGR2.py cu-gr-2 cu-gr-2/benchmark/test/ispd18_test5_metal5
 
-# 4. reproduce the headline table (GNN warm start -> few-iter DGR -> isolated CUGR2)
-python3 test_gnn_all6.py --load_gnn gnn_all6_robust.pth --device 0
+# 6. reproduce the headline table (GNN warm start -> few-iter DGR -> isolated CUGR2)
+python3 test_gnn_all6.py --load_gnn gnn_all6_robust.pth --iter 50 --device 0
 #    -> RESULTS/all6_test.csv   (compare to RESULTS/final_best.csv)
 ```
 
-Full per-figure reproduction: **[`docs/REPRODUCE.md`](docs/REPRODUCE.md)**.
+**`./verify.sh`** (step 2) imports the stack, byte-compiles every script, and
+regenerates Fig 1 / Fig 2 / Table 3 figures from the shipped CSVs — confirm the
+environment is correct before touching CUGR2 or benchmarks. Full per-figure
+reproduction: **[`docs/REPRODUCE.md`](docs/REPRODUCE.md)**.
+
+### Verified to run out-of-the-box
+- **Environment + figure regeneration** — `./verify.sh` (no benchmarks/GPU).
+- **Synthetic benchmark generation from scratch** — `gen_synth_batch.py` (CPU).
+- Raw-benchmark → routing steps (`data_process_CUGR2.py`, `test_gnn_all6.py`,
+  `route_scatter12.py`, `compare_heatmaps.py`, `overflow_curve.py`) need CUGR2
+  built (step 3) + ISPD benchmarks in place (step 4); see `docs/REPRODUCE.md`.
 
 ---
 
