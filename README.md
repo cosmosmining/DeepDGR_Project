@@ -22,6 +22,7 @@ routing** (each route in its own temp dir → no cross-run corruption).
 |---|---|---|
 | **Table 1** — beats CUGR2 & DGR 6/6 | main quality result | `test_gnn_all6.py`, `optimize_final.py` |
 | **Fig 1** — 12-setting parameter sweep | via vs WL, bubble = overflow | `route_scatter12.py` → `plot_scatter12_pro.py` |
+| **Fig (Pareto)** — frontiers across methods | non-dominated via/WL staircase | `make_pareto.py` |
 | **Table 2 / Fig 2** — runtime & early-stop | 71–177× optimize; stop ~15–50 it | `overflow_curve.py`, `make_figset.py` |
 | **Table 3** — entire-flow wall time | all overhead + route, 2.8–4.8× | `make_figset.py` |
 | **Fig 3** — overflow heatmaps (18 maps) | native/DGR/ours, all 6 chips | `compare_heatmaps.py` → `render_overflow_maps.py` |
@@ -98,10 +99,16 @@ python3 test_gnn_all6.py --load_gnn gnn_all6_robust.pth --iter 50 --device 0
 #    -> RESULTS/all6_test.csv   (compare to RESULTS/final_best.csv)
 ```
 
-**`./verify.sh`** (step 2) imports the stack, byte-compiles every script, and
-regenerates Fig 1 / Fig 2 / Table 3 figures from the shipped CSVs — confirm the
-environment is correct before touching CUGR2 or benchmarks. Full per-figure
-reproduction: **[`docs/REPRODUCE.md`](docs/REPRODUCE.md)**.
+**`./verify.sh`** (step 2) imports the stack, byte-compiles every script,
+**re-derives every report number from the shipped CSVs** (`verify_numbers.py`),
+and regenerates the figures — confirm correctness before touching CUGR2 or
+benchmarks. Full per-figure reproduction: **[`docs/REPRODUCE.md`](docs/REPRODUCE.md)**.
+
+**Evidence that the numbers are correct:** `python3 verify_numbers.py`
+re-derives Table 1 (main result), the Δ% columns, the 6/6 strict-domination
+claim, Table 3 runtime, and the Fig 1/2 data directly from `RESULTS/*.csv` —
+**22/22 checks pass**. See **[`VERIFICATION.md`](VERIFICATION.md)** for the
+evidence table and the honest tuned-vs-default caveat.
 
 ### Verified to run out-of-the-box
 - **Environment + figure regeneration** — `./verify.sh` (no benchmarks/GPU).

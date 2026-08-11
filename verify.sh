@@ -19,14 +19,17 @@ P
 echo "== 2. byte-compile all scripts =="
 $PY -m py_compile *.py && ok "all .py compile" || no "compile"
 
-echo "== 3. regenerate report figures from RESULTS/*.csv (no benchmarks needed) =="
+echo "== 3. re-derive every report NUMBER from RESULTS/*.csv (the evidence) =="
+$PY verify_numbers.py && ok "all report numbers re-derived (Table 1/3, deltas, 6/6, Fig 1/2)" || no "verify_numbers"
+
+echo "== 4. regenerate report FIGURES from RESULTS/*.csv (no benchmarks needed) =="
 $PY plot_scatter12_pro.py       >/dev/null 2>&1 && ok "Fig 1  parameter-sweep scatter"        || no "scatter"
-$PY plot_scatter12_pro.py --pareto >/dev/null 2>&1 && ok "Fig 1b Pareto-frontier variant"      || no "scatter-pareto"
+$PY make_pareto.py              >/dev/null 2>&1 && ok "Fig (Pareto) frontiers across methods"  || no "pareto"
 $PY make_color_plots.py         >/dev/null 2>&1 && ok "Fig 2  overflow curves + scaling + runtime" || no "color plots"
 $PY make_figset.py              >/dev/null 2>&1 && ok "Table 3 flow-runtime figure + csv"       || no "figset"
 
-echo "== 4. outputs present =="
-for f in RESULTS/figs/scatter12pro_all-1.png RESULTS/figs/runtime_speedup-1.png \
+echo "== 5. outputs present =="
+for f in RESULTS/figs/scatter12pro_all-1.png RESULTS/figs/pareto_all-1.png RESULTS/figs/runtime_speedup-1.png \
          RESULTS/figs/fig_flow_runtime-1.png RESULTS/flow_runtime.csv; do
   [ -s "$f" ] && ok "wrote $f" || no "missing $f"
 done

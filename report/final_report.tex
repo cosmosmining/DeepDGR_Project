@@ -297,9 +297,24 @@ best achievable operating points without paying in overflow.
 \caption{Per benchmark, all three methods under 12 identical router
 parameter settings: via count vs.\ wirelength, bubble area $\propto$ overflow,
 line = trade-off trajectory (points sorted by via). Lower-left with smaller
-bubbles is better. A Pareto-frontier variant
-(\texttt{scatter12pro\_pareto\_all}) accompanies the bundle.}
+bubbles is better.}
 \label{fig:scatter}
+\end{figure}
+
+Figure~\ref{fig:pareto} distills the same sweep to each method's
+\emph{Pareto frontier} in (via, wirelength): the lower-left non-dominated
+operating points, drawn as a staircase, with dominated points faded. This is
+the cleanest side-by-side of the three methods --- a frontier lying to the
+lower-left is strictly better. The frontiers of the three methods are close
+(again consistent with the honest finding), with ``ours'' reaching the
+lower-left corner (e.g.\ ispd18\_test10 at via $2.05$M / WL $70.3$M, and the
+minimum-WL corner of ispd19\_test8) without larger overflow bubbles.
+\begin{figure}[h]\centering
+\includegraphics[width=.99\linewidth]{pareto_all-1.png}
+\caption{Pareto frontiers across methods (native CUGR2 / baseline DGR / ours):
+via vs.\ wirelength, non-dominated staircase per method, bubble area
+$\propto$ overflow. Lower-left is better; dominated points are faded.}
+\label{fig:pareto}
 \end{figure}
 
 \subsection{Runtime}\label{sec:iter}
